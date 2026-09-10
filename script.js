@@ -93,6 +93,28 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 })();
 
+// ─── Poster parallax on scroll ──────────────────────────────────
+(function posterParallax() {
+  const heroBg = document.getElementById('hero-bg');
+  if (!heroBg) return;
+
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const scrollY = window.scrollY;
+      const heroHeight = document.getElementById('hero').offsetHeight;
+      if (scrollY < heroHeight) {
+        // Move bg upward at 40% scroll speed (parallax depth)
+        const offset = scrollY * 0.4;
+        heroBg.style.transform = `scale(1.08) translateY(${offset}px)`;
+      }
+      ticking = false;
+    });
+  }, { passive: true });
+})();
+
 // ─── Subtle cursor parallax on hero ─────────────────────────────
 (function heroParallax() {
   const hero = document.getElementById('hero');
