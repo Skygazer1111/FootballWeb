@@ -17,6 +17,9 @@ FootballWeb/
 ├── index.html          # Main homepage (single page)
 ├── styles.css          # All styles — design tokens, layout, animations
 ├── script.js           # JS — nav, countdown, scroll reveal, parallax
+├── config.js           # ⚙️  Your WhatsApp number goes here (gitignored)
+├── .env                # Reference file — copy values into config.js
+├── .gitignore          # Keeps config.js and .env out of git
 ├── FutsalPoster.jpeg   # Tournament poster (used as hero background)
 ├── loveAllIcon.jpeg    # LoveAll Club logo (favicon + nav + footer)
 └── Readme.md           # This file
@@ -115,16 +118,26 @@ npx serve .
 
 ---
 
-## 📬 Registration
+## 📬 Registration & WhatsApp
 
-Teams register via WhatsApp. Update the link in `index.html`:
+The WhatsApp button is driven by [`config.js`](./config.js) — **this file is gitignored** and will not be pushed to GitHub, keeping your number private.
 
-```html
-<!-- index.html — Register section -->
-<a href="https://wa.me/+91XXXXXXXXXX" ...>Message us on WhatsApp</a>
+### Setup
+
+1. Open [`config.js`](./config.js)
+2. Replace `91XXXXXXXXXX` with your full number (country code + number, no `+`, no spaces):
+
+```js
+// config.js
+const SITE_CONFIG = {
+  whatsappNumber: "919876543210",   // ← your number here
+  whatsappMessage: "Hi! I want to register my team for the LoveAll Futsal Tournament on 26 Sep.",
+};
 ```
 
-Replace `+91XXXXXXXXXX` with the organiser's WhatsApp number.
+3. Save — the button on the site will now open a WhatsApp chat to your number with the pre-filled message.
+
+> **Note:** `.env` documents the variables as a reference but browsers cannot read it directly. `config.js` is the file the site uses.
 
 ---
 

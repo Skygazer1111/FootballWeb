@@ -3,6 +3,28 @@
    Navbar, countdown, scroll reveal, parallax
    ============================================================ */
 
+// ─── WhatsApp links — reads from config.js ──────────────────────
+(function initWhatsApp() {
+  if (typeof SITE_CONFIG === 'undefined') {
+    console.warn('config.js not loaded — WhatsApp links will not work.');
+    return;
+  }
+
+  const { whatsappNumber, whatsappMessage } = SITE_CONFIG;
+  if (!whatsappNumber || whatsappNumber.includes('X')) {
+    console.warn('WhatsApp number not set in config.js');
+    return;
+  }
+
+  const encoded = encodeURIComponent(whatsappMessage || '');
+  const url = `https://wa.me/${whatsappNumber}?text=${encoded}`;
+
+  // Update every WhatsApp CTA on the page
+  document.querySelectorAll('#reg-whatsapp-btn, [data-whatsapp]').forEach(el => {
+    el.href = url;
+  });
+})();
+
 // ─── Nav fill on scroll ──────────────────────────────────────────
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
