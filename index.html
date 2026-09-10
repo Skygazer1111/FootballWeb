@@ -8,7 +8,8 @@
   <link rel="icon" type="image/jpeg" href="loveAllIcon.jpeg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="variables.css" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -16,7 +17,7 @@
   <!-- NAV -->
   <nav id="nav">
     <a href="#" class="nav-logo" id="nav-logo-link">
-      <img src="loveAllIcon.jpeg" alt="LoveAll" width="32" height="32" />
+      <img src="loveAllIcon.jpeg" alt="LoveAll" />
       <span>LoveAll</span>
     </a>
     <div class="nav-links">
@@ -26,250 +27,266 @@
     </div>
   </nav>
 
-  <!-- HERO -->
+  <!-- ═══════════ HERO ═══════════ -->
   <section id="hero">
-    <div class="hero-bg" id="hero-bg"></div>
-    <div class="hero-eyebrow" data-reveal>
-      <span class="dot"></span> Saturday · 26 September · Chennai
+
+    <!-- Ambient teal glow layers -->
+    <div class="hero-glow glow-top" aria-hidden="true"></div>
+    <div class="hero-glow glow-bottom" aria-hidden="true"></div>
+
+    <!-- Orbit rings around the ball -->
+    <div class="orbit-container" aria-hidden="true">
+      <div class="orbit orbit-1"></div>
+      <div class="orbit orbit-2"></div>
+      <div class="orbit orbit-3"></div>
+      <!-- Orbiting dots -->
+      <div class="orbit-dot dot-a"></div>
+      <div class="orbit-dot dot-b"></div>
+      <div class="orbit-dot dot-c"></div>
     </div>
 
-    <h1 class="hero-title" data-reveal data-reveal-delay="1">
-      <span class="line"><em>Futsal</em></span>
-      <span class="line">Tournament</span>
-    </h1>
-
-    <p class="hero-sub" data-reveal data-reveal-delay="2">
-      5v5 indoor football — organised by LoveAll Club
-    </p>
-
-    <div class="hero-actions" data-reveal data-reveal-delay="3">
-      <a href="#register" class="btn-fill" id="hero-register">Register your team</a>
-      <a href="#details" class="btn-ghost" id="hero-details">See details ↓</a>
+    <!-- THE BALL — centrepiece -->
+    <div class="ball-wrap" id="ball-wrap">
+      <div class="ball-glow-ring" aria-hidden="true"></div>
+      <img
+        src="ball.png"
+        alt="Futsal ball"
+        class="hero-ball"
+        id="hero-ball"
+        draggable="false"
+      />
+      <div class="ball-shadow" aria-hidden="true"></div>
     </div>
 
-    <div class="hero-scroll-line" aria-hidden="true">
-      <div class="scroll-progress"></div>
+    <!-- Hero text — positioned left-bottom -->
+    <div class="hero-text">
+      <p class="hero-eyebrow" data-reveal>
+        <span class="eyebrow-dot"></span>
+        Saturday · 26 September · Chennai
+      </p>
+      <h1 class="hero-title" data-reveal data-reveal-delay="1">
+        LoveAll<br/>
+        <span class="title-accent">Futsal</span><br/>
+        <span class="title-light">Tournament</span>
+      </h1>
+      <p class="hero-sub" data-reveal data-reveal-delay="2">
+        5v5 indoor football &mdash; organised by LoveAll Club
+      </p>
+      <div class="hero-actions" data-reveal data-reveal-delay="3">
+        <a href="#register" class="btn-primary" id="hero-register">Register your team</a>
+        <a href="#details" class="btn-ghost" id="hero-details">Explore ↓</a>
+      </div>
     </div>
+
+    <!-- Key stat floating pill — top right -->
+    <div class="hero-pill" data-reveal data-reveal-delay="2">
+      <span class="pill-num">5:00 PM</span>
+      <span class="pill-label">Kick Off · Sep 26</span>
+    </div>
+
+    <!-- Scroll cue -->
+    <div class="scroll-cue" aria-hidden="true">
+      <div class="scroll-line">
+        <div class="scroll-runner"></div>
+      </div>
+      <span>scroll</span>
+    </div>
+
   </section>
 
-  <!-- STATS BAND -->
-  <section id="stats">
+  <!-- ═══════════ STATS BAND ═══════════ -->
+  <div class="stats-band">
     <div class="stats-inner">
-      <div class="stat" data-reveal>
-        <div class="stat-num">5v5</div>
-        <div class="stat-label">Format</div>
+      <div class="stat-item" data-reveal>
+        <div class="stat-val">5v5</div>
+        <div class="stat-key">Format</div>
       </div>
-      <div class="stat-sep" aria-hidden="true"></div>
-      <div class="stat" data-reveal data-reveal-delay="1">
-        <div class="stat-num">₹1,500</div>
-        <div class="stat-label">Per team</div>
+      <div class="stat-div" aria-hidden="true"></div>
+      <div class="stat-item" data-reveal data-reveal-delay="1">
+        <div class="stat-val accent-pink">₹1,500</div>
+        <div class="stat-key">Entry / team</div>
       </div>
-      <div class="stat-sep" aria-hidden="true"></div>
-      <div class="stat" data-reveal data-reveal-delay="2">
-        <div class="stat-num">5 PM</div>
-        <div class="stat-label">Kick off</div>
+      <div class="stat-div" aria-hidden="true"></div>
+      <div class="stat-item" data-reveal data-reveal-delay="2">
+        <div class="stat-val">5 PM</div>
+        <div class="stat-key">Kick off</div>
       </div>
-      <div class="stat-sep" aria-hidden="true"></div>
-      <div class="stat" data-reveal data-reveal-delay="3">
-        <div class="stat-num">Sep 26</div>
-        <div class="stat-label">Match day</div>
+      <div class="stat-div" aria-hidden="true"></div>
+      <div class="stat-item" data-reveal data-reveal-delay="3">
+        <div class="stat-val">Sep 26</div>
+        <div class="stat-key">Match day</div>
       </div>
-    </div>
-  </section>
-
-  <!-- MARQUEE -->
-  <div class="marquee-strip" aria-hidden="true">
-    <div class="marquee-track">
-      <span>LoveAll</span>
-      <span class="accent">·</span>
-      <span>Futsal Tournament</span>
-      <span class="accent">·</span>
-      <span>5v5</span>
-      <span class="accent">·</span>
-      <span>26 September</span>
-      <span class="accent">·</span>
-      <span>Circuit Sports OMR</span>
-      <span class="accent">·</span>
-      <span>Chennai</span>
-      <span class="accent">·</span>
-      <span>₹1500 per team</span>
-      <span class="accent">·</span>
-      <span>5:00 PM Kick Off</span>
-      <span class="accent">·</span>
     </div>
   </div>
 
-  <!-- COUNTDOWN -->
+  <!-- ═══════════ COUNTDOWN ═══════════ -->
   <section id="countdown">
-    <div class="countdown-label" data-reveal>Time until kick off</div>
-    <div class="countdown-grid" data-reveal data-reveal-delay="1">
-      <div class="cd-unit">
+    <div class="section-label" data-reveal>Time until kick off</div>
+    <div class="countdown-row" data-reveal data-reveal-delay="1">
+      <div class="cd-block">
         <div class="cd-num" id="cd-days">15</div>
-        <div class="cd-lbl">days</div>
+        <div class="cd-unit-label">days</div>
       </div>
-      <div class="cd-sep">:</div>
-      <div class="cd-unit">
+      <span class="cd-colon">:</span>
+      <div class="cd-block">
         <div class="cd-num" id="cd-hours">00</div>
-        <div class="cd-lbl">hrs</div>
+        <div class="cd-unit-label">hrs</div>
       </div>
-      <div class="cd-sep">:</div>
-      <div class="cd-unit">
+      <span class="cd-colon">:</span>
+      <div class="cd-block">
         <div class="cd-num" id="cd-mins">00</div>
-        <div class="cd-lbl">min</div>
+        <div class="cd-unit-label">min</div>
       </div>
-      <div class="cd-sep">:</div>
-      <div class="cd-unit">
+      <span class="cd-colon">:</span>
+      <div class="cd-block">
         <div class="cd-num" id="cd-secs">00</div>
-        <div class="cd-lbl">sec</div>
+        <div class="cd-unit-label">sec</div>
       </div>
     </div>
   </section>
 
-  <!-- DETAILS -->
+  <!-- ═══════════ DETAILS ═══════════ -->
   <section id="details">
     <div class="section-header" data-reveal>
-      <span class="section-tag">The tournament</span>
-      <h2>Everything<br/><em>you need to know</em></h2>
+      <span class="section-label">The tournament</span>
+      <h2 class="section-title">Everything you need<br/><span class="title-muted">to know</span></h2>
     </div>
 
-    <div class="details-grid">
-      <div class="detail-block" data-reveal>
-        <div class="detail-num">01</div>
+    <div class="detail-grid">
+      <div class="detail-card" data-reveal>
+        <div class="card-num">01</div>
         <h3>5-a-side</h3>
         <p>Five players on the pitch with one substitute per team. Pure futsal — fast, technical, intense.</p>
       </div>
-      <div class="detail-block" data-reveal data-reveal-delay="1">
-        <div class="detail-num">02</div>
+      <div class="detail-card" data-reveal data-reveal-delay="1">
+        <div class="card-num">02</div>
         <h3>Open to all</h3>
-        <p>Any team can sign up. No restrictions on skill level — just bring your squad and your best game.</p>
+        <p>Any team can sign up. No restrictions — just bring your squad and your best game.</p>
       </div>
-      <div class="detail-block" data-reveal data-reveal-delay="2">
-        <div class="detail-num">03</div>
+      <div class="detail-card" data-reveal data-reveal-delay="2">
+        <div class="card-num">03</div>
         <h3>₹1,500 entry</h3>
-        <p>Flat entry fee per team. Limited slots — first come, first served. Register early to secure your spot.</p>
+        <p>Flat entry per team. Limited slots — first come, first served. Register early.</p>
       </div>
-      <div class="detail-block" data-reveal data-reveal-delay="3">
-        <div class="detail-num">04</div>
+      <div class="detail-card" data-reveal data-reveal-delay="3">
+        <div class="card-num">04</div>
         <h3>Group + knockout</h3>
         <p>Round-robin group stage followed by single-elimination knockouts. Every match matters.</p>
       </div>
     </div>
   </section>
 
-  <!-- FORMAT -->
+  <!-- ═══════════ FORMAT ═══════════ -->
   <section id="format">
-    <div class="format-inner">
-      <div class="format-text" data-reveal>
-        <span class="section-tag">How it works</span>
-        <h2>Three stages.<br/><em>One champion.</em></h2>
-        <p>Teams battle through the group stage to earn their spot in the knockout rounds, culminating in a final showdown for the LoveAll Futsal trophy.</p>
+    <div class="format-layout">
+      <div class="format-left" data-reveal>
+        <span class="section-label">How it works</span>
+        <h2 class="section-title">Three stages.<br/><span class="title-muted">One champion.</span></h2>
+        <p class="format-desc">Teams battle through the group stage to earn their spot in the knockouts, culminating in a final showdown for the LoveAll Futsal trophy.</p>
       </div>
-
-      <div class="format-steps">
+      <div class="format-right">
         <div class="format-step" data-reveal>
-          <span class="step-n">01</span>
+          <span class="step-tag">01</span>
           <div>
             <h4>Group Stage</h4>
             <p>Round-robin within groups. Top teams advance.</p>
           </div>
+          <span class="step-arrow">↗</span>
         </div>
         <div class="format-step" data-reveal data-reveal-delay="1">
-          <span class="step-n">02</span>
+          <span class="step-tag">02</span>
           <div>
             <h4>Knockouts</h4>
             <p>Single elimination. One match, one chance.</p>
           </div>
+          <span class="step-arrow">↗</span>
         </div>
         <div class="format-step" data-reveal data-reveal-delay="2">
-          <span class="step-n">03</span>
+          <span class="step-tag">03</span>
           <div>
             <h4>The Final</h4>
             <p>Two teams. One winner. Glory and the trophy.</p>
           </div>
+          <span class="step-arrow">↗</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- VENUE -->
+  <!-- ═══════════ VENUE ═══════════ -->
   <section id="venue">
-    <div class="venue-inner">
-      <div class="venue-text" data-reveal>
-        <span class="section-tag">Venue</span>
-        <h2>Circuit Sports OMR</h2>
+    <div class="venue-layout">
+      <div class="venue-left" data-reveal>
+        <span class="section-label">Venue</span>
+        <h2 class="section-title">Circuit Sports OMR</h2>
         <address>
           The Ark, 189, Rajiv Gandhi Salai,<br/>
           Sholinganallur, Chennai,<br/>
           Tamil Nadu
         </address>
-        <div class="venue-tags">
+        <div class="venue-chips">
           <span>Indoor turf</span>
           <span>Floodlit</span>
           <span>Parking</span>
         </div>
-        <a href="https://maps.google.com/?q=Circuit+Sports+OMR+Sholinganallur+Chennai" target="_blank" class="btn-fill" id="venue-maps-btn" style="width:fit-content;margin-top:2rem;">
+        <a href="https://maps.google.com/?q=Circuit+Sports+OMR+Sholinganallur+Chennai" target="_blank" class="btn-primary" id="venue-maps-btn" style="width:fit-content;margin-top:var(--spacing-40);">
           Open in Maps ↗
         </a>
       </div>
-
-      <div class="venue-visual" data-reveal data-reveal-delay="1">
-        <div class="venue-card-grid">
-          <div class="vc vc-date">
-            <div class="vc-label">Date</div>
-            <div class="vc-val">26<sup>th</sup> Sep</div>
-            <div class="vc-sub">Saturday</div>
+      <div class="venue-right" data-reveal data-reveal-delay="1">
+        <div class="info-grid">
+          <div class="info-tile">
+            <div class="tile-label">Date</div>
+            <div class="tile-val">26<sup>th</sup> Sep</div>
+            <div class="tile-sub">Saturday</div>
           </div>
-          <div class="vc vc-time">
-            <div class="vc-label">Kick off</div>
-            <div class="vc-val">5:00</div>
-            <div class="vc-sub">PM IST</div>
+          <div class="info-tile accent-tile">
+            <div class="tile-label">Kick off</div>
+            <div class="tile-val">5:00</div>
+            <div class="tile-sub">PM IST</div>
           </div>
-          <div class="vc vc-loc">
-            <div class="vc-label">Location</div>
-            <div class="vc-val-sm">Circuit Sports<br/>OMR</div>
+          <div class="info-tile">
+            <div class="tile-label">Location</div>
+            <div class="tile-val-sm">Circuit Sports OMR</div>
           </div>
-          <div class="vc vc-fee">
-            <div class="vc-label">Entry</div>
-            <div class="vc-val">₹1,500</div>
-            <div class="vc-sub">per team</div>
+          <div class="info-tile accent-tile">
+            <div class="tile-label">Entry</div>
+            <div class="tile-val">₹1,500</div>
+            <div class="tile-sub">per team</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- REGISTER -->
+  <!-- ═══════════ REGISTER ═══════════ -->
   <section id="register">
-    <div class="register-inner" data-reveal>
-      <div class="register-logo">
-        <img src="loveAllIcon.jpeg" alt="LoveAll" width="64" height="64" />
-      </div>
-      <h2>Ready to compete?</h2>
-      <p>Register your team via WhatsApp. Limited slots — don't wait.</p>
-      <a href="https://wa.me/+919XXXXXXXXX" target="_blank" class="btn-fill btn-large" id="reg-whatsapp-btn">
+    <div class="register-well" data-reveal>
+      <img src="loveAllIcon.jpeg" alt="LoveAll" class="register-logo" />
+      <h2 class="register-title">Ready to compete?</h2>
+      <p class="register-sub">Register your team via WhatsApp. Limited slots — don't wait.</p>
+      <a href="https://wa.me/+919XXXXXXXXX" target="_blank" class="btn-primary btn-lg" id="reg-whatsapp-btn">
         Message us on WhatsApp
       </a>
       <div class="register-meta">
         <span>₹1,500 / team</span>
-        <span>·</span>
+        <span class="meta-dot">·</span>
         <span>26 Sep, 5 PM</span>
-        <span>·</span>
+        <span class="meta-dot">·</span>
         <span>Circuit Sports OMR</span>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- ═══════════ FOOTER ═══════════ -->
   <footer id="footer">
     <div class="footer-inner">
       <div class="footer-brand">
-        <img src="loveAllIcon.jpeg" alt="LoveAll" width="24" height="24" />
+        <img src="loveAllIcon.jpeg" alt="LoveAll" />
         <span>LoveAll Club</span>
       </div>
       <span class="footer-copy">© 2026 LoveAll. All rights reserved.</span>
-      <div class="footer-links">
-        <a href="#" id="footer-ig">Instagram</a>
-      </div>
+      <a href="#" class="footer-link" id="footer-ig">Instagram</a>
     </div>
   </footer>
 
