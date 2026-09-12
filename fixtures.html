@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fixtures — LoveAll Futsal Tournament</title>
+  <meta name="description" content="Match fixtures for the LoveAll Futsal Tournament. 5v5. Saturday 26th September, 5 PM. Circuit Sports OMR, Chennai." />
+  <link rel="icon" type="image/jpeg" href="loveAllIcon.jpeg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── Fixtures page ── */
+    #fixtures-page {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 8rem 3rem 6rem;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      text-align: center;
+    }
+
+    /* Subtle radial glow behind the content */
+    #fixtures-page::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 50% 50%, rgba(198,241,53,0.05) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Animated grid lines in background */
+    #fixtures-page::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 75%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .fixtures-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    /* Clock / pulsing icon */
+    .fixtures-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 1px solid rgba(198,241,53,0.2);
+      background: rgba(198,241,53,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin-bottom: 2.5rem;
+      animation: icon-pulse 3s ease-in-out infinite;
+    }
+    @keyframes icon-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(198,241,53,0.15); }
+      50%       { box-shadow: 0 0 0 16px rgba(198,241,53,0); }
+    }
+
+    /* Tag */
+    .fixtures-tag {
+      font-size: 0.72rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--lime);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .fixtures-tag::before,
+    .fixtures-tag::after {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 1px;
+      background: rgba(198,241,53,0.3);
+    }
+
+    /* Heading */
+    .fixtures-title {
+      font-family: var(--ff-serif);
+      font-size: clamp(3.5rem, 9vw, 8rem);
+      font-weight: 400;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      margin-bottom: 1.75rem;
+    }
+    .fixtures-title em {
+      font-style: italic;
+      color: var(--lime);
+    }
+
+    /* Sub text */
+    .fixtures-sub {
+      font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+      font-weight: 300;
+      color: var(--grey-4);
+      line-height: 1.7;
+      max-width: 420px;
+      margin-bottom: 3rem;
+    }
+
+    /* Pill badges row */
+    .fixtures-badges {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 3.5rem;
+    }
+    .fixtures-badge {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--grey-4);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 0.4rem 0.9rem;
+      border-radius: 100px;
+    }
+    .fixtures-badge.active {
+      color: var(--lime);
+      border-color: rgba(198,241,53,0.25);
+      background: rgba(198,241,53,0.06);
+    }
+
+    /* Back link */
+    .fixtures-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--grey-4);
+      transition: color 0.2s, gap 0.2s;
+    }
+    .fixtures-back:hover { color: var(--white); gap: 0.75rem; }
+
+    /* Placeholder fixture cards — blurred/locked state */
+    .fixtures-preview {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 3rem;
+      max-width: 640px;
+      width: 100%;
+      filter: blur(3px);
+      opacity: 0.25;
+      pointer-events: none;
+      user-select: none;
+    }
+    .fp-cell {
+      background: var(--black);
+      padding: 1.5rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .fp-team {
+      font-family: var(--ff-serif);
+      font-size: 1.1rem;
+      color: var(--white);
+    }
+    .fp-vs {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lime);
+    }
+    .fp-time {
+      font-size: 0.72rem;
+      color: var(--grey-3);
+    }
+
+    /* Lock overlay on preview */
+    .fixtures-preview-wrap {
+      position: relative;
+      max-width: 640px;
+      width: 100%;
+      margin-bottom: 3rem;
+    }
+    .fixtures-lock {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+    }
+    .fixtures-lock-badge {
+      background: rgba(10,10,10,0.85);
+      border: 1px solid rgba(198,241,53,0.2);
+      border-radius: 100px;
+      padding: 0.5rem 1.2rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--lime);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    @media (max-width: 768px) {
+      #fixtures-page { padding: 7rem 1.5rem 5rem; }
+      .fixtures-preview { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="index.html" class="nav-logo" id="nav-logo-link">
+      <img src="loveAllIcon.jpeg" alt="LoveAll" width="32" height="32" />
+      <span>LoveAll</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html#details" id="nav-details">Details</a>
+      <a href="index.html#venue" id="nav-venue">Venue</a>
+      <a href="rules.html" id="nav-rules">Rules</a>
+      <a href="fixtures.html" id="nav-fixtures" style="color: var(--lime);">Fixtures</a>
+      <a href="index.html#register" id="nav-register" class="nav-cta">Register</a>
+    </div>
+  </nav>
+
+  <!-- FIXTURES PAGE -->
+  <main id="fixtures-page">
+    <div class="fixtures-inner">
+
+      <!-- Pulsing icon -->
+      <div class="fixtures-icon" data-reveal>📅</div>
+
+      <!-- Tag -->
+      <div class="fixtures-tag" data-reveal>Coming Soon</div>
+
+      <!-- Heading -->
+      <h1 class="fixtures-title" data-reveal data-reveal-delay="1">
+        Fixtures &amp;<br/><em>Schedule</em>
+      </h1>
+
+      <!-- Sub -->
+      <p class="fixtures-sub" data-reveal data-reveal-delay="2">
+        The match fixtures will be released once all teams are confirmed. Check back closer to the tournament date.
+      </p>
+
+      <!-- Stage badges -->
+      <div class="fixtures-badges" data-reveal data-reveal-delay="2">
+        <span class="fixtures-badge active">Group Stage</span>
+        <span class="fixtures-badge">Knockouts</span>
+        <span class="fixtures-badge">Semi Finals</span>
+        <span class="fixtures-badge">Final</span>
+      </div>
+
+      <!-- Blurred preview of what fixtures will look like -->
+      <div class="fixtures-preview-wrap" data-reveal data-reveal-delay="3">
+        <div class="fixtures-preview">
+          <div class="fp-cell">
+            <div class="fp-team">Team A</div>
+            <div class="fp-vs">VS</div>
+            <div class="fp-team">Team B</div>
+            <div class="fp-time">5:00 PM</div>
+          </div>
+          <div class="fp-cell">
+            <div class="fp-team">Team C</div>
+            <div class="fp-vs">VS</div>
+            <div class="fp-team">Team D</div>
+            <div class="fp-time">5:15 PM</div>
+          </div>
+          <div class="fp-cell">
+            <div class="fp-team">Team E</div>
+            <div class="fp-vs">VS</div>
+            <div class="fp-team">Team F</div>
+            <div class="fp-time">5:30 PM</div>
+          </div>
+        </div>
+        <div class="fixtures-lock">
+          <span class="fixtures-lock-badge">🔒 Will be released soon</span>
+        </div>
+      </div>
+
+      <!-- Back -->
+      <a href="index.html" class="fixtures-back" id="back-home" data-reveal data-reveal-delay="3">
+        ← Back to home
+      </a>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="loveAllIcon.jpeg" alt="LoveAll" width="24" height="24" />
+        <span>LoveAll Club</span>
+      </div>
+      <span class="footer-copy">&copy; 2026 LoveAll. All rights reserved.</span>
+      <div class="footer-links">
+        <a href="index.html" id="footer-home">Home</a>
+        <span class="footer-built">Built by <a href="https://portfolio-priyan.vercel.app/" target="_blank" rel="noopener" class="footer-priyan" id="footer-priyan">Priyan</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Nav fill on scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('filled', window.scrollY > 60);
+    }, { passive: true });
+
+    // Scroll / intersection reveal
+    (function initReveal() {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.05 });
+      document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+    })();
+  </script>
+
+</body>
+</html>
