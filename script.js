@@ -147,10 +147,12 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   }, { passive: true });
 })();
 
-// ─── Marquee: duplicate for seamless loop ────────────────────────
+// ─── Marquee: duplicate inner items for seamless loop ───────────
 (function initMarquee() {
   document.querySelectorAll('.marquee-track').forEach(track => {
-    const clone = track.cloneNode(true);
-    track.parentElement.appendChild(clone);
+    // Clone each child span into the same track so translateX(-50%) loops seamlessly
+    Array.from(track.children).forEach(item => {
+      track.appendChild(item.cloneNode(true));
+    });
   });
 })();
