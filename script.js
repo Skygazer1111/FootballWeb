@@ -22,6 +22,15 @@
   // Update every WhatsApp CTA on the page
   document.querySelectorAll('#reg-whatsapp-btn, [data-whatsapp]').forEach(el => {
     el.href = url;
+    el.target = '_blank';
+    el.rel = 'noopener noreferrer';
+
+    // Belt-and-suspenders: direct click handler so it always opens correctly
+    el.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      window.open(url, '_blank', 'noopener,noreferrer');
+    });
   });
 })();
 
@@ -83,10 +92,16 @@ window.addEventListener('scroll', () => {
   document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
 })();
 
-// ─── Smooth anchor scrolling ─────────────────────────────────────
+// ─── Smooth anchor scrolling (skip WhatsApp / external buttons) ──
 document.querySelectorAll('a[href^="#"]').forEach(a => {
+  // Skip elements that are WhatsApp CTAs — they have their own handler
+  if (a.id === 'reg-whatsapp-btn' || a.hasAttribute('data-whatsapp')) return;
+
   a.addEventListener('click', e => {
-    const id = a.getAttribute('href').slice(1);
+    const href = a.getAttribute('href');
+    // Only intercept real in-page anchors (href must be more than just "#")
+    if (!href || href === '#') return;
+    const id = href.slice(1);
     const target = document.getElementById(id);
     if (target) {
       e.preventDefault();
