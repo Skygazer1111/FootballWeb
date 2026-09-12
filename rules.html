@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rules — LoveAll Futsal Tournament</title>
+  <meta name="description" content="Official rules for the LoveAll Futsal Tournament. 5v5. Saturday 26th September, 5 PM. Circuit Sports OMR, Chennai." />
+  <link rel="icon" type="image/jpeg" href="loveAllIcon.jpeg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Rules hero */
+    #rules-hero {
+      min-height: 42vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 3rem 5rem;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    #rules-hero .rules-hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('FutsalPoster.jpeg');
+      background-size: cover;
+      background-position: center 30%;
+      background-repeat: no-repeat;
+      z-index: -2;
+      filter: blur(2px) brightness(0.35);
+    }
+    #rules-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(5,5,5,0.98) 0%, rgba(5,5,5,0.75) 50%, rgba(5,5,5,0.5) 100%);
+      z-index: -1;
+      pointer-events: none;
+    }
+    .rules-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--grey-4);
+      margin-bottom: 1.5rem;
+    }
+    .rules-title {
+      font-family: var(--ff-serif);
+      font-size: clamp(3.5rem, 8vw, 8rem);
+      font-weight: 400;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      color: var(--white);
+    }
+    .rules-title em { font-style: italic; color: var(--lime); }
+
+    /* Body */
+    #rules-body {
+      padding: 7rem 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .rules-intro { max-width: 640px; margin-bottom: 5rem; }
+    .rules-intro p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--grey-4);
+      font-weight: 300;
+    }
+
+    /* Category */
+    .rules-category { margin-bottom: 4rem; }
+    .rules-category-label {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .rules-category-num {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: var(--lime);
+      flex-shrink: 0;
+    }
+    .rules-category-title {
+      font-family: var(--ff-serif);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      color: var(--white);
+    }
+
+    /* Rule rows */
+    .rules-list { display: flex; flex-direction: column; gap: 0; }
+    .rule-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      padding: 1.5rem 0.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: background 0.3s, padding-left 0.3s var(--ease-out);
+      border-radius: 8px;
+    }
+    .rule-row:hover { background: rgba(255,255,255,0.02); padding-left: 1rem; }
+    .rule-row:last-child { border-bottom: none; }
+    .rule-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      background: rgba(198,241,53,0.08);
+      border: 1px solid rgba(198,241,53,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .rule-content h4 {
+      font-family: var(--ff-serif);
+      font-size: 1.1rem;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      color: var(--white);
+      margin-bottom: 0.3rem;
+    }
+    .rule-content p {
+      font-size: 0.875rem;
+      line-height: 1.7;
+      color: var(--grey-4);
+      font-weight: 300;
+    }
+
+    /* Highlight box */
+    .rule-highlight {
+      background: linear-gradient(135deg, rgba(198,241,53,0.07) 0%, rgba(198,241,53,0.03) 100%);
+      border: 1px solid rgba(198,241,53,0.2);
+      border-radius: 12px;
+      padding: 1.5rem 1.75rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .rule-highlight-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .rule-highlight h4 {
+      font-family: var(--ff-serif);
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: var(--lime);
+      margin-bottom: 0.3rem;
+    }
+    .rule-highlight p {
+      font-size: 0.875rem;
+      line-height: 1.7;
+      color: var(--grey-4);
+      font-weight: 300;
+    }
+
+    /* Timing strip */
+    .timing-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      overflow: hidden;
+      margin: 2rem 0;
+    }
+    .timing-cell {
+      background: var(--black);
+      padding: 2rem 1.75rem;
+      text-align: center;
+      transition: background 0.3s;
+    }
+    .timing-cell:hover { background: #111; }
+    .timing-val {
+      font-family: var(--ff-serif);
+      font-size: 2.75rem;
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      color: var(--lime);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .timing-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--grey-4);
+    }
+    .timing-sub { font-size: 0.78rem; color: var(--grey-3); margin-top: 0.25rem; }
+
+    /* Back link */
+    .rules-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--grey-4);
+      transition: color 0.2s, gap 0.2s;
+      margin-bottom: 5rem;
+    }
+    .rules-back:hover { color: var(--white); gap: 0.75rem; }
+
+    @media (max-width: 768px) {
+      #rules-hero { padding: 0 1.5rem 4rem; }
+      #rules-body { padding: 4rem 1.5rem; }
+      .timing-strip { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="index.html" class="nav-logo" id="nav-logo-link">
+      <img src="loveAllIcon.jpeg" alt="LoveAll" width="32" height="32" />
+      <span>LoveAll</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html#details" id="nav-details">Details</a>
+      <a href="index.html#venue" id="nav-venue">Venue</a>
+      <a href="rules.html" id="nav-rules" style="color: var(--lime);">Rules</a>
+      <a href="index.html#register" id="nav-register" class="nav-cta">Register</a>
+    </div>
+  </nav>
+
+  <!-- RULES HERO -->
+  <section id="rules-hero">
+    <div class="rules-hero-bg"></div>
+
+    <div class="rules-eyebrow" data-reveal>
+      <span class="dot"></span> LoveAll Futsal Tournament · 26 September
+    </div>
+
+    <h1 class="rules-title" data-reveal data-reveal-delay="1">
+      The <em>Rules</em>
+    </h1>
+  </section>
+
+  <!-- RULES BODY -->
+  <div id="rules-body">
+
+    <a href="index.html" class="rules-back" id="back-to-home" data-reveal>
+      ← Back to home
+    </a>
+
+    <div class="rules-intro" data-reveal>
+      <p>The LoveAll Futsal Tournament follows standard football / futsal rules with a few specific additions to keep matches fast and fair. All participants are expected to play in the spirit of the game.</p>
+    </div>
+
+    <!-- 01: General Rules -->
+    <div class="rules-category" data-reveal>
+      <div class="rules-category-label">
+        <span class="rules-category-num">01</span>
+        <h2 class="rules-category-title">General Rules</h2>
+      </div>
+      <div class="rules-list">
+        <div class="rule-row">
+          <div class="rule-icon">⚽</div>
+          <div class="rule-content">
+            <h4>Standard Football Rules Apply</h4>
+            <p>All standard football / futsal rules are in effect — fouls, free kicks, corner kicks, goal kicks — unless otherwise specified below.</p>
+          </div>
+        </div>
+        <div class="rule-row">
+          <div class="rule-icon">👕</div>
+          <div class="rule-content">
+            <h4>5-a-Side Format</h4>
+            <p>Each team fields 5 players on the pitch at a time, with 1 substitute allowed per team. Substitutions can be made during stoppages in play.</p>
+          </div>
+        </div>
+        <div class="rule-row">
+          <div class="rule-icon">🤝</div>
+          <div class="rule-content">
+            <h4>Fair Play</h4>
+            <p>Dangerous or reckless challenges are prohibited. Repeated foul play may result in a player being asked to leave the pitch.</p>
+          </div>
+        </div>
+        <div class="rule-row">
+          <div class="rule-icon">🚫</div>
+          <div class="rule-content">
+            <h4>No Slide Tackles</h4>
+            <p>Slide tackles are strictly not allowed. Violation results in a free kick to the opposing team. Repeated violations may result in a yellow or red card.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02: Match Timing -->
+    <div class="rules-category" data-reveal>
+      <div class="rules-category-label">
+        <span class="rules-category-num">02</span>
+        <h2 class="rules-category-title">Match Timing</h2>
+      </div>
+
+      <div class="timing-strip">
+        <div class="timing-cell">
+          <div class="timing-val">6</div>
+          <div class="timing-label">Minutes</div>
+          <div class="timing-sub">per half</div>
+        </div>
+        <div class="timing-cell">
+          <div class="timing-val">5</div>
+          <div class="timing-label">Minutes</div>
+          <div class="timing-sub">half-time break</div>
+        </div>
+        <div class="timing-cell">
+          <div class="timing-val">+2</div>
+          <div class="timing-label">Extra Time</div>
+          <div class="timing-sub">if needed</div>
+        </div>
+      </div>
+
+      <div class="rules-list">
+        <div class="rule-row">
+          <div class="rule-icon">⏱️</div>
+          <div class="rule-content">
+            <h4>6 Minutes Per Half</h4>
+            <p>Each match consists of two halves of 6 minutes each. The clock runs continuously.</p>
+          </div>
+        </div>
+        <div class="rule-row">
+          <div class="rule-icon">☕</div>
+          <div class="rule-content">
+            <h4>5-Minute Half-Time Break</h4>
+            <p>Teams receive a 5-minute break between halves to regroup, hydrate, and strategise.</p>
+          </div>
+        </div>
+        <div class="rule-row">
+          <div class="rule-icon">⚡</div>
+          <div class="rule-content">
+            <h4>Extra Time (if needed)</h4>
+            <p>If a knockout match is level at full time, up to 2 minutes of extra time will be played. If still level, a penalty shootout will decide the winner.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03: Referee -->
+    <div class="rules-category" data-reveal>
+      <div class="rules-category-label">
+        <span class="rules-category-num">03</span>
+        <h2 class="rules-category-title">Referee &amp; Officials</h2>
+      </div>
+
+      <div class="rule-highlight">
+        <span class="rule-highlight-icon">🟡</span>
+        <div>
+          <h4>Decision of the Referee is Final</h4>
+          <p>The referee's decision on all matters — including fouls, goals, timing, and player conduct — is final and binding. Arguments with the referee will not be tolerated and may result in disciplinary action, including removal from the tournament.</p>
+        </div>
+      </div>
+
+      <div class="rules-list">
+        <div class="rule-row">
+          <div class="rule-icon">📋</div>
+          <div class="rule-content">
+            <h4>Full Authority</h4>
+            <p>The referee has full authority to manage the match from the moment they enter the pitch until they leave after the final whistle.</p>
+          </div>
+        </div>
+        <div class="rule-row">
+          <div class="rule-icon">🙏</div>
+          <div class="rule-content">
+            <h4>Respect All</h4>
+            <p>All players, substitutes, and team officials must respect the referee and opponents at all times. Unsporting behaviour will be penalised accordingly.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04: Tournament Structure -->
+    <div class="rules-category" data-reveal>
+      <div class="rules-category-label">
+        <span class="rules-category-num">04</span>
+        <h2 class="rules-category-title">Tournament Structure</h2>
+      </div>
+      <div class="rules-list">
+        <div class="rule-row">
+          <div class="rule-icon">🏆</div>
+          <div class="rule-content">
+            <h4>Group Stage</h4>
+            <p>Teams play round-robin within their group. Points: Win = 3, Draw = 1, Loss = 0. Top teams advance to the knockout rounds.</p>
+          </div>
+        </div>
+        <div class="rule-row">
+          <div class="rule-icon">⚔️</div>
+          <div class="rule-content">
+            <h4>Knockout Rounds</h4>
+            <p>Single-elimination format — no second chances. Extra time and penalties apply as described above.</p>
+          </div>
+        </div>
+        <div class="rule-row">
+          <div class="rule-icon">🥇</div>
+          <div class="rule-content">
+            <h4>The Final</h4>
+            <p>The top two teams face off for the LoveAll Futsal Trophy. If level after normal time, extra time and penalties decide the champion.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="loveAllIcon.jpeg" alt="LoveAll" width="24" height="24" />
+        <span>LoveAll Club</span>
+      </div>
+      <span class="footer-copy">&copy; 2026 LoveAll. All rights reserved.</span>
+      <div class="footer-links">
+        <a href="index.html" id="footer-home">Home</a>
+        <span class="footer-built">Built by <a href="https://portfolio-priyan.vercel.app/" target="_blank" rel="noopener" class="footer-priyan" id="footer-priyan">Priyan</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Nav fill on scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('filled', window.scrollY > 60);
+    }, { passive: true });
+
+    // Scroll reveal
+    (function initReveal() {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+      document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+    })();
+  </script>
+
+</body>
+</html>
