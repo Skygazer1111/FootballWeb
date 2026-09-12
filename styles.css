@@ -505,6 +505,12 @@ address { font-style: normal; }
   color: var(--grey-4);
   font-weight: 300;
 }
+/* Solo / individual card highlight */
+.detail-block--solo {
+  background: rgba(198,241,53,0.04);
+  border-left: 2px solid rgba(198,241,53,0.35);
+}
+.detail-block--solo h3 { color: var(--lime); }
 
 /* ============================================================
    FORMAT
@@ -726,6 +732,39 @@ address { font-style: normal; }
   flex-wrap: wrap;
   justify-content: center;
   margin-top: 0.5rem;
+}
+
+/* Solo callout in register section */
+.solo-callout {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background: rgba(198,241,53,0.06);
+  border: 1px solid rgba(198,241,53,0.18);
+  border-radius: 12px;
+  padding: 1.1rem 1.4rem;
+  text-align: left;
+  max-width: 420px;
+  width: 100%;
+}
+.solo-callout-icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+.solo-callout strong {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--lime);
+  margin-bottom: 0.2rem;
+}
+.solo-callout p {
+  font-size: 0.83rem;
+  line-height: 1.6;
+  color: var(--grey-4);
+  font-weight: 300;
+  margin: 0;
 }
 
 /* ============================================================
