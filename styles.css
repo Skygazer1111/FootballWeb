@@ -481,6 +481,25 @@ address { font-style: normal; }
 #details {
   padding: 8rem 3rem;
   border-bottom: 1px solid rgba(255,255,255,0.06);
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 16%, rgba(198,241,53,0.1) 0%, transparent 28%),
+    radial-gradient(circle at 82% 72%, rgba(255,255,255,0.05) 0%, transparent 30%),
+    linear-gradient(180deg, var(--black) 0%, #0d1008 48%, var(--black) 100%);
+}
+#details::before {
+  content: '';
+  position: absolute;
+  inset: 1px 0 auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(198,241,53,0.45), transparent);
+  pointer-events: none;
+}
+#details .section-header,
+#details .details-grid {
+  position: relative;
+  z-index: 1;
 }
 .section-tag {
   display: block;
@@ -504,41 +523,98 @@ address { font-style: normal; }
 
 .details-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  border-left: 1px solid rgba(255,255,255,0.06);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
 }
 .detail-block {
-  padding: 2.5rem 2rem;
-  border-right: 1px solid rgba(255,255,255,0.06);
-  border-top: 1px solid rgba(255,255,255,0.06);
-  transition: background 0.3s;
+  min-height: 250px;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 24px;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,0.075) 0%, rgba(255,255,255,0.025) 45%, rgba(198,241,53,0.035) 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+  isolation: isolate;
+  transition: border-color 0.35s var(--ease-out), transform 0.35s var(--ease-out), background 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
 }
-.detail-block:hover { background: rgba(255,255,255,0.02); }
+.detail-block::before {
+  content: '';
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  right: -72px;
+  top: -72px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(198,241,53,0.16) 0%, transparent 65%);
+  opacity: 0;
+  transform: scale(0.75);
+  transition: opacity 0.35s var(--ease-out), transform 0.35s var(--ease-out);
+  z-index: -1;
+}
+.detail-block::after {
+  content: attr(data-card);
+  position: absolute;
+  right: 1rem;
+  bottom: -0.28em;
+  font-family: var(--ff-serif);
+  font-size: 8rem;
+  line-height: 1;
+  letter-spacing: -0.08em;
+  color: rgba(255,255,255,0.03);
+  pointer-events: none;
+}
+.detail-block:hover {
+  background:
+    linear-gradient(145deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.035) 42%, rgba(198,241,53,0.06) 100%);
+  border-color: rgba(198,241,53,0.28);
+  box-shadow: 0 24px 70px rgba(0,0,0,0.34), inset 0 1px 0 rgba(255,255,255,0.12);
+  transform: translateY(-6px);
+}
+.detail-block:hover::before {
+  opacity: 1;
+  transform: scale(1);
+}
+.detail-block--wide {
+  grid-column: span 2;
+}
 .detail-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid rgba(198,241,53,0.18);
+  border-radius: 999px;
+  background: rgba(198,241,53,0.075);
   font-size: 0.7rem;
   font-weight: 500;
   letter-spacing: 0.1em;
   color: var(--lime);
-  margin-bottom: 1.5rem;
+  margin-bottom: 3rem;
 }
 .detail-block h3 {
   font-family: var(--ff-serif);
-  font-size: 1.4rem;
+  font-size: clamp(1.65rem, 2.4vw, 2.35rem);
   font-weight: 400;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.025em;
   color: var(--white);
   margin-bottom: 0.75rem;
+  line-height: 1;
 }
 .detail-block p {
-  font-size: 0.875rem;
+  max-width: 24rem;
+  font-size: 0.92rem;
   line-height: 1.7;
-  color: var(--grey-4);
+  color: var(--grey-5);
   font-weight: 300;
 }
 /* Solo / individual card highlight */
 .detail-block--solo {
-  background: rgba(198,241,53,0.04);
-  border-left: 2px solid rgba(198,241,53,0.35);
+  background:
+    linear-gradient(145deg, rgba(198,241,53,0.14) 0%, rgba(198,241,53,0.055) 45%, rgba(255,255,255,0.035) 100%);
+  border-color: rgba(198,241,53,0.26);
 }
 .detail-block--solo h3 { color: var(--lime); }
 
@@ -635,27 +711,6 @@ address { font-style: normal; }
   font-weight: 300;
   margin-bottom: 1.5rem;
 }
-.venue-tags {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-.venue-tags span {
-  font-size: 0.73rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--grey-4);
-  border: 1px solid rgba(255,255,255,0.1);
-  padding: 0.3rem 0.7rem;
-  border-radius: 100px;
-  transition: border-color 0.2s, color 0.2s;
-}
-.venue-tags span:hover {
-  border-color: rgba(255,255,255,0.25);
-  color: var(--white);
-}
-
 .venue-card-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -753,17 +808,6 @@ address { font-style: normal; }
   color: var(--grey-4);
   line-height: 1.7;
 }
-.register-meta {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-size: 0.8rem;
-  color: var(--grey-3);
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 0.5rem;
-}
-
 /* Solo callout in register section */
 .solo-callout {
   display: flex;
@@ -850,7 +894,7 @@ address { font-style: normal; }
    ============================================================ */
 @media (max-width: 1024px) {
   .format-inner, .venue-inner { grid-template-columns: 1fr; gap: 3rem; }
-  .details-grid { grid-template-columns: repeat(3, 1fr); }
+  .details-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 768px) {
   #nav { padding: 1rem 1.5rem; }
@@ -865,8 +909,15 @@ address { font-style: normal; }
   .cd-num { font-size: clamp(3rem, 15vw, 5rem); }
   .cd-sep { font-size: clamp(2rem, 10vw, 3.5rem); }
   #details, #format, #venue, #register { padding: 5rem 1.5rem; }
-  .details-grid { grid-template-columns: repeat(2, 1fr); }
-  .detail-block { padding: 2rem 0; border-right: none; }
+  .details-grid { grid-template-columns: 1fr; }
+  .detail-block,
+  .detail-block--wide {
+    grid-column: span 1;
+  }
+  .detail-block {
+    min-height: 220px;
+    padding: 1.4rem;
+  }
   .venue-card-grid { grid-template-columns: 1fr 1fr; }
   #register { padding: 6rem 1.5rem; }
   #footer { padding: 1.5rem; }
@@ -875,6 +926,4 @@ address { font-style: normal; }
 }
 @media (max-width: 480px) {
   .venue-card-grid { grid-template-columns: 1fr; }
-  .details-grid { grid-template-columns: 1fr; }
-  .detail-block { padding: 2rem 0; border-right: none; }
 }
