@@ -435,13 +435,18 @@ address { font-style: normal; }
   line-height: 1;
   letter-spacing: -0.04em;
   color: var(--white);
-  min-width: 2ch;
+  min-width: 2.25ch;
   display: inline-block;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  will-change: opacity, filter;
+  backface-visibility: hidden;
 }
-.cd-num.tick { animation: num-tick 0.25s var(--ease-out); }
+.cd-num.tick { animation: num-tick 0.35s var(--ease-out); }
 @keyframes num-tick {
-  0% { transform: translateY(-6px); opacity: 0.3; }
-  100% { transform: translateY(0); opacity: 1; }
+  0% { opacity: 0.65; filter: blur(0.5px); }
+  100% { opacity: 1; filter: blur(0); }
 }
 .cd-lbl {
   font-size: 0.7rem;
@@ -456,11 +461,18 @@ address { font-style: normal; }
   line-height: 1.05;
   color: var(--grey-2);
   padding: 0 0.1rem;
-  animation: sep-blink 1s step-start infinite;
+  animation: sep-pulse 1s ease-in-out infinite;
 }
-@keyframes sep-blink {
+@keyframes sep-pulse {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0.15; }
+  50% { opacity: 0.45; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cd-num.tick,
+  .cd-sep {
+    animation: none;
+  }
 }
 
 /* ============================================================

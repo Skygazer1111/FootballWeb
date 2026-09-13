@@ -6,31 +6,26 @@
 // ─── WhatsApp links — reads from config.js ──────────────────────
 (function initWhatsApp() {
   if (typeof SITE_CONFIG === 'undefined') {
-    console.warn('config.js not loaded — WhatsApp links will not work.');
+    console.warn('config.js not loaded — using WhatsApp link from HTML.');
     return;
   }
 
-  const { whatsappNumber, whatsappMessage } = SITE_CONFIG;
-  if (!whatsappNumber || whatsappNumber.includes('X')) {
+  const { whatsappMessage } = SITE_CONFIG;
+  const configuredNumber = String(SITE_CONFIG.whatsappNumber || '');
+  const whatsappNumber = configuredNumber.replace(/\D/g, '');
+  if (!whatsappNumber || configuredNumber.includes('X') || whatsappNumber.length < 8) {
     console.warn('WhatsApp number not set in config.js');
     return;
   }
 
   const encoded = encodeURIComponent(whatsappMessage || '');
-  const url = `https://wa.me/${whatsappNumber}?text=${encoded}`;
+  const url = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encoded}`;
 
   // Update every WhatsApp CTA on the page
   document.querySelectorAll('#reg-whatsapp-btn, [data-whatsapp]').forEach(el => {
     el.href = url;
     el.target = '_blank';
     el.rel = 'noopener noreferrer';
-
-    // Belt-and-suspenders: direct click handler so it always opens correctly
-    el.addEventListener('click', function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      window.open(url, '_blank', 'noopener,noreferrer');
-    });
   });
 })();
 
@@ -50,32 +45,49 @@ window.addEventListener('scroll', () => {
     secs:  document.getElementById('cd-secs'),
   };
   const prev = { days: -1, hours: -1, mins: -1, secs: -1 };
+  let timerId;
 
   function pad(n) { return String(Math.max(0, n)).padStart(2, '0'); }
+
+  function updateUnit(key, val) {
+    if (val === prev[key] || !els[key]) return;
+
+    els[key].textContent = pad(val);
+    els[key].classList.remove('tick');
+    requestAnimationFrame(() => {
+      els[key].classList.add('tick');
+    });
+    prev[key] = val;
+  }
 
   function tick() {
     const diff = target - Date.now();
     if (diff <= 0) {
       Object.values(els).forEach(el => el && (el.textContent = '00'));
-      return;
+      if (timerId) clearTimeout(timerId);
+      return false;
     }
+
     const d = Math.floor(diff / 86400000);
     const h = Math.floor((diff % 86400000) / 3600000);
     const m = Math.floor((diff % 3600000) / 60000);
     const s = Math.floor((diff % 60000) / 1000);
 
-    [['days', d], ['hours', h], ['mins', m], ['secs', s]].forEach(([key, val]) => {
-      if (val !== prev[key] && els[key]) {
-        els[key].classList.remove('tick');
-        void els[key].offsetWidth;
-        els[key].classList.add('tick');
-        els[key].textContent = pad(val);
-        prev[key] = val;
-      }
-    });
+    updateUnit('days', d);
+    updateUnit('hours', h);
+    updateUnit('mins', m);
+    updateUnit('secs', s);
+    return true;
   }
-  tick();
-  setInterval(tick, 1000);
+
+  function scheduleTick() {
+    const delay = 1000 - (Date.now() % 1000) + 20;
+    timerId = setTimeout(() => {
+      if (tick()) scheduleTick();
+    }, delay);
+  }
+
+  if (tick()) scheduleTick();
 })();
 
 // ─── Scroll reveal ───────────────────────────────────────────────
